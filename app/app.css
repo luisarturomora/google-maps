@@ -1,0 +1,19 @@
+Page {
+  background-color: gray;
+  font-size: 15;
+  color: white;
+}
+TextField {
+  padding: 10;
+  font-size: 13;
+}
+.small-spacing {
+  margin: 5;
+}
+.medium-spacing {
+  margin: 10;
+}
+ActionBar {
+  background-color: red;
+  color: white;
+}
