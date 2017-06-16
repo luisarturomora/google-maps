@@ -5,8 +5,6 @@ import * as SocialShare from 'nativescript-social-share';
 import { Province } from '../../models/provinces/provinces';
 import { Data } from '../../models/provinces/province.service';
 
-var file = require('../../file.json');
-
 @Component({
   selector: "province",
   templateUrl: "pages/provinces/provinces.html",
@@ -22,13 +20,12 @@ export class ProvincesComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    this.provincesList = file.list;
+    this.provincesList = this.data.provinces;
     this.isLoading = false;
     this.listLoaded = true;
   }
 
   toMap(province){
-      console.dir(this.data)
     this.data.storage = province;
     this.router.navigate(['/map']);
   }
