@@ -14,8 +14,7 @@ firebase.init({
         else {
         data.token = "";
         }
-    },
-    iOSEmulatorFlush: true
+    }
     }).then(
     function (instance) {
         console.log("firebase.init done");

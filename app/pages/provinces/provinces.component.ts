@@ -34,7 +34,7 @@ export class ProvincesComponent implements OnInit {
   }
 
   toMap(province){
-    this.data.storage = province;
+    this.data.storage = province
     this.router.navigate(['/map']);
   }
 }
