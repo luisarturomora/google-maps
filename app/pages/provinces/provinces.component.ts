@@ -24,7 +24,11 @@ export class ProvincesComponent implements OnInit {
   ngOnInit() {
     this.page.actionBarHidden = false;
     this.isLoading = true;
-    this.provincesList = this.data.provinces;
+    this.data.getList()
+    .then(result => {
+      this.provincesList = result;
+    })
+    
     this.isLoading = false;
     this.listLoaded = true;
   }

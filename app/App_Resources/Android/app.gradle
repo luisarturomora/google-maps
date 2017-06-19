@@ -9,6 +9,7 @@ android {
   defaultConfig {  
     generatedDensities = []
     applicationId = "org.nativescript.hello" 
+    multiDexEnabled true
     
     //override supported platforms
     // ndk {
@@ -20,4 +21,7 @@ android {
   aaptOptions {  
     additionalParameters "--no-version-vectors"  
   }  
+  project.ext {
+    googlePlayServicesVersion = "10.2.+"
+  }
 } 

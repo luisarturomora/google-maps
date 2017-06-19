@@ -23,6 +23,7 @@
     "@angular/router": "~4.1.0",
     "nativescript-angular": "~3.0.0",
     "nativescript-google-maps-sdk": "^2.1.3",
+    "nativescript-plugin-firebase": "^3.12.0",
     "nativescript-social-share": "^1.3.2",
     "nativescript-theme-core": "~1.0.2",
     "reflect-metadata": "~0.1.8",
