@@ -1,7 +1,5 @@
 Page {
-  background-color: gray;
   font-size: 15;
-  color: white;
 }
 TextField {
   padding: 10;
@@ -14,6 +12,6 @@ TextField {
   margin: 10;
 }
 ActionBar {
-  background-color: red;
+  background-color: gray;
   color: white;
 }
