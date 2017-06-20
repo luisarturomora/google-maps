@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import * as firebase from 'nativescript-plugin-firebase';
 
 @Injectable() 
 export class UserService {
+
     login(user) {
         if(user.email && user.password){
             return firebase.login({
@@ -18,7 +19,6 @@ export class UserService {
                 }
             );
         } else {
-            console.log(user)
             return Promise.reject('Type an email and password');
         }
     }

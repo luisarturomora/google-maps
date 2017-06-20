@@ -18,3 +18,8 @@ Button, TextField {
   color: white;
   margin-top: 20;
 }
+.visible {
+  animation-name: show;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
