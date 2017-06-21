@@ -1,17 +1,30 @@
+<ActionBar title="Province" >
+  <NavigationButton text="Go Back"></NavigationButton>
+  <ActionItem (tap)="openDrawer()"
+      ios.systemIcon="9" ios.position="left"
+      android.systemIcon="ic_menu_share" 
+      android.position="actionBar"></ActionItem>
+</ActionBar>
 
-<ios>
-<ActionBar title="Provinces" ></ActionBar>
-</ios>
+<RadSideDrawer tkExampleTitle tkToggleNavButton>
+    <StackLayout tkDrawerContent class="sideStackLayout">
+        <StackLayout class="sideTitleStackLayout">
+            <Label text="Navigation Menu"></Label>
+        </StackLayout>
+        <StackLayout class="sideStackLayout">
+            <Label text="Profile" (tap)="toProfile()" class="sideLabel sideLightGrayLabel"></Label>
+        </StackLayout>
+        <Label text="Close Drawer" color="lightgray" padding="10" (tap)="onCloseDrawerTap()"></Label>
+    </StackLayout>
+    <StackLayout tkMainContent>
+        <GridLayout rows="auto, *">
 
-<GridLayout rows="auto, *">
+          <ListView [items]="provincesList" row="1" class="small-spacing" [class.visible]="listLoaded">
+            <ng-template let-item="item">
+              <Label [text]="item.name" class="medium-spacing" (tap)="toMap(item)"></Label>
+            </ng-template>
+          </ListView>
+        </GridLayout>
+    </StackLayout>
+</RadSideDrawer>
 
-  <ListView [items]="provincesList" row="1" class="small-spacing" [class.visible]="listLoaded">
-    <ng-template let-item="item">
-      <Label [text]="item.name" class="medium-spacing" (tap)="toMap(item)"></Label>
-    </ng-template>
-  </ListView>
-
-  <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" 
-  row="1" horizontalAlignment="center" verticalAlignment="center">
-  </ActivityIndicator>
-</GridLayout>

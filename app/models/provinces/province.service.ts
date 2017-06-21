@@ -18,8 +18,7 @@ firebase.init({
     },
     function (error) {
         console.log("firebase.init error: " + error);
-    }
-    );
+    });
 
     
  
@@ -33,7 +32,7 @@ export class Data {
     }
 
     getList(){
-        return firebase.query(this.onQueryEvent, '/list', {
+        return firebase.query(result => {}, '/list', {
                 singleEvent: true,
                 orderBy: {
                     type: firebase.QueryOrderByType.CHILD,
@@ -47,10 +46,5 @@ export class Data {
                 return error;
             })
     }
-
-
-
-    onQueryEvent(result) {
-        };
  
 }
