@@ -1,7 +1,8 @@
 <ActionBar title="Province" >
     <NavigationButton text="go back"></NavigationButton>
-    <ActionItem android.position="left" ios.position="left" (tap)="openDrawer()" text="Menu" 
-    android.systemIcon="ic_menu_moreoverflow"></ActionItem>
+    <NavigationButton (tap)="openDrawer()" android.systemIcon="ic_menu_moreoverflow"></NavigationButton>
+    <ActionItem ios.position="left" (tap)="openDrawer()" text="Menu" android:visibility="collapse"
+    ></ActionItem>
 </ActionBar>
 
 <RadSideDrawer tkExampleTitle tkToggleNavButton>

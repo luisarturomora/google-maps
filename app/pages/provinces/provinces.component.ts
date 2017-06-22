@@ -4,6 +4,7 @@ import * as SocialShare from 'nativescript-social-share';
 import { Page } from 'ui/page';
 import { RadSideDrawerComponent } from "nativescript-telerik-ui-pro/sidedrawer/angular";
 import { RadSideDrawer } from 'nativescript-telerik-ui-pro/sidedrawer';
+import * as platform from 'platform';
 
 import { Province } from '../../models/provinces/provinces';
 import { Data } from '../../models/provinces/province.service';
@@ -14,6 +15,8 @@ import { Data } from '../../models/provinces/province.service';
   styleUrls: ["pages/provinces/provinces-common.css", "pages/provinces/provinces.css"],
 })
 
+
+
 export class ProvincesComponent implements OnInit {
   provincesList: Array<Province> = [];
   isLoading = false;
@@ -21,6 +24,7 @@ export class ProvincesComponent implements OnInit {
   showBack = false;
   title = 'Provinces';
 
+  
   constructor(
     private router : Router, private data : Data, private page : Page,
     private _changeDetectionRef: ChangeDetectorRef
@@ -34,7 +38,10 @@ export class ProvincesComponent implements OnInit {
     .then(result => {
       this.provincesList = result;
     })
-    this.page.actionBar.navigationButton.visibility = "collapse";
+
+    if(platform.isIOS){
+      this.page.actionBar.navigationButton.visibility = "collapse";    
+    }
     this.isLoading = false;
     this.listLoaded = true;
   }
