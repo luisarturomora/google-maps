@@ -1,9 +1,5 @@
 <ActionBar title="Province" >
-  <NavigationButton text="Go Back"></NavigationButton>
-  <ActionItem (tap)="openDrawer()"
-      ios.systemIcon="9" ios.position="left"
-      android.systemIcon="ic_menu_share" 
-      android.position="actionBar"></ActionItem>
+    <NavigationButton (tap)="openDrawer()" text="Menu" android.systemIcon="ic_menu_moreoverflow"></NavigationButton>
 </ActionBar>
 
 <RadSideDrawer tkExampleTitle tkToggleNavButton>
@@ -14,7 +10,6 @@
         <StackLayout class="sideStackLayout">
             <Label text="Profile" (tap)="toProfile()" class="sideLabel sideLightGrayLabel"></Label>
         </StackLayout>
-        <Label text="Close Drawer" color="lightgray" padding="10" (tap)="onCloseDrawerTap()"></Label>
     </StackLayout>
     <StackLayout tkMainContent>
         <GridLayout rows="auto, *">

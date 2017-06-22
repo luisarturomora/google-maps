@@ -37,7 +37,6 @@ export class ProvincesComponent implements OnInit {
     
     this.isLoading = false;
     this.listLoaded = true;
-    this.page.actionBar.navigationButton.visibility = 'collapse';
   }
 
   toMap(province){
