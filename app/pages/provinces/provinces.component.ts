@@ -34,7 +34,7 @@ export class ProvincesComponent implements OnInit {
     .then(result => {
       this.provincesList = result;
     })
-    
+    this.page.actionBar.navigationButton.visibility = "collapse";
     this.isLoading = false;
     this.listLoaded = true;
   }
