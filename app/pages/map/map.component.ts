@@ -1,6 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import { registerElement } from 'nativescript-angular/element-registry';
 import { MapView, Marker, Position } from 'nativescript-google-maps-sdk';
+import { Page } from 'ui/page';
 
 import { Province } from '../../models/provinces/provinces';
 import { Data } from '../../models/provinces/province.service';
@@ -21,10 +22,11 @@ export class MapComponent {
     tilt = 0;
     padding = [40, 40, 40, 40];
     mapView: MapView;
-
     lastCamera: String;
 
-    constructor( private data : Data) {
+    firstTime : boolean = true;
+
+    constructor( private data : Data, private page : Page) {
         this.province = data.storage;
     }
 
@@ -54,6 +56,12 @@ export class MapComponent {
     }
 
     onCameraChanged(args) {
+        if(!this.firstTime){
+            this.page.actionBar.title = "Google Maps";
+        }
+
+        this.firstTime = false;
+
         console.log("Camera changed: " + JSON.stringify(args.camera), JSON.stringify(args.camera) === this.lastCamera);
         this.lastCamera = JSON.stringify(args.camera);
     }
