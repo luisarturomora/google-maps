@@ -89,10 +89,10 @@ export class ProfileService {
     update(user) {
         return firebase.update('/users/' + this.user.uid, user)
                     .then( result => {
-                        return 'Updated'
+                        return Promise.resolve('Updated');
                     })
                     .catch( error => {
-                        return 'Something is wrong';
+                        return Promise.reject('Something is wrong');
                     })
     }
 
