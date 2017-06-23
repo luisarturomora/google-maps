@@ -32,7 +32,7 @@ export class ProfileService {
                 ]
             })
             .then( result => {
-                if(result.value[this.user.uid])
+                if(result.value)
                     return result.value[this.user.uid];
                 else 
                     return undefined;
