@@ -32,7 +32,6 @@ export class ProfileService {
                 ]
             })
             .then( result => {
-                console.log(result.value[this.user.uid])
                 if(result.value[this.user.uid])
                     return result.value[this.user.uid];
                 else 

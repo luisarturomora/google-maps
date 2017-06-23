@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { ProfileService } from '../../models/profile/profile.service';
 import { UserProfile } from '../../models/profile/profile';
@@ -8,7 +8,7 @@ import { UserProfile } from '../../models/profile/profile';
     templateUrl: 'pages/profile/profile.html',
     styleUrls: ['pages/profile/profile-common.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
     user : UserProfile = {
         uid: '',
         email: '',
@@ -26,9 +26,6 @@ export class ProfileComponent implements OnInit {
             .catch(error => {
                 console.log(error)
             })
-    }
-
-    ngOnInit(){
     }
 
     save(){
