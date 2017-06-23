@@ -32,7 +32,8 @@ export class ProfileService {
                 ]
             })
             .then( result => {
-                if(result.length == 1)
+                console.log(result.value[this.user.uid])
+                if(result.value[this.user.uid])
                     return result.value[this.user.uid];
                 else 
                     return undefined;
@@ -46,8 +47,9 @@ export class ProfileService {
     getProfile(){
         return this.find()
             .then( result => {
-                if(result)
+                if(result){
                     return result;
+                }
                 else 
                     return this.user;
             })

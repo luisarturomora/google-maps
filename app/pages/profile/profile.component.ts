@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
     constructor( private profileService : ProfileService ){
         profileService.getProfile()
             .then(result => {
+                console.dir(result)
                 this.user = result;
             })
             .catch(error => {
