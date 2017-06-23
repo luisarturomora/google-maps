@@ -18,6 +18,7 @@ import { API_KEY } from './config';
 
 import { Data } from './models/provinces/province.service';
 import { UserService } from './models/user/user.service';
+import { ProfileService } from './models/profile/profile.service';
 
 
 
@@ -50,6 +51,7 @@ if (platform.isIOS) {
     ...authProviders,
      Data,
      UserService,
+     ProfileService
      ] ,
   bootstrap: [ AppComponent ]
 })

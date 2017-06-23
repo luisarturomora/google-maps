@@ -53,11 +53,12 @@ export class ProvincesComponent implements OnInit {
 
   toProfile(){
     this.router.navigate(['/profile']);
+    this.onCloseDrawerTap();
   }
 
    private _mainContentText: string;
 
-    @ViewChild(RadSideDrawerComponent) public drawerComponent: RadSideDrawerComponent;
+    @ViewChild(RadSideDrawerComponent) drawerComponent: RadSideDrawerComponent;
     private drawer: RadSideDrawer;
 
     ngAfterViewInit() {
@@ -65,11 +66,17 @@ export class ProvincesComponent implements OnInit {
         this._changeDetectionRef.detectChanges();
     }
 
-    public openDrawer() {
+    openDrawer() {
         this.drawer.showDrawer();
     }
 
-    public onCloseDrawerTap() {
+    onCloseDrawerTap() {
        this.drawer.closeDrawer();
+    }
+
+    logout(){
+      this.onCloseDrawerTap();
+      this.data.logout();
+      this.router.navigate(['/login']);
     }
 }

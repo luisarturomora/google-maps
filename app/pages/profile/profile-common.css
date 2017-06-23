@@ -1,0 +1,9 @@
+Label {
+    margin-left: 10;
+    margin-top: 10;
+}
+
+.no-margin {
+    margin-top: 5;
+    margin-bottom: 5;
+}

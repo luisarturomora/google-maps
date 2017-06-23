@@ -1,8 +1,12 @@
 import { Injectable, Inject } from '@angular/core';
 import * as firebase from 'nativescript-plugin-firebase';
 
+import { ProfileService } from '../profile/profile.service';
+
 @Injectable() 
 export class UserService {
+
+    constructor( private profileService : ProfileService){}
 
     login(user) {
         if(user.email && user.password){
@@ -12,12 +16,13 @@ export class UserService {
                 password: user.password
             })
             .then( result => {
-                    return Promise.resolve(result);
+                this.profileService.user.uid = result.uid;
+                this.profileService.user.email = result.email;
+                return Promise.resolve(result);
                 })
             .catch( errorMessage => {
                 return Promise.reject('Email or password are incorrect');
-                }
-            );
+            });
         } else {
             return Promise.reject('Type an email and password');
         }

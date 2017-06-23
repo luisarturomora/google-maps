@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'nativescript-plugin-firebase';
 
+import { AuthGuard } from '../../authguard.service';
+
 firebase.init({
     persist: false,
     storageBucket: 'gs://hello-e2914.appspot.com',
@@ -26,9 +28,8 @@ firebase.init({
 export class Data {
  
     public storage: any;
-    public token : any;
  
-    public constructor() {
+    constructor(private authguard : AuthGuard ) {
     }
 
     getList(){
@@ -45,6 +46,11 @@ export class Data {
             .catch(error => {
                 return error;
             })
+    }
+
+    logout(){
+        this.authguard.isLoggedIn = false;
+        return firebase.logout();
     }
  
 }

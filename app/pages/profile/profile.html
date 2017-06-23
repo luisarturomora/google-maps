@@ -1,3 +1,18 @@
-<GridLayout>
-    <Label text="Your profile"></Label>
-</GridLayout>
+<ActionBar title="Profile" ></ActionBar>
+<StackLayout>
+    <Label [text]="user.uid"></Label>
+
+    <Label text="Name"></Label>
+    <TextField [(ngModel)]="user.name" hint="Enter your name" ></TextField>
+
+    <Label text="Last name"></Label>
+    <TextField [(ngModel)]="user.lastname" hint="Enter your last name" ></TextField>
+
+    <Label text="Email"></Label>
+    <Label class="no-margin" [text]="user.email" ></Label>
+
+    <Label text="Birth Day"></Label>
+    <TextField [(ngModel)]="user.birthday" hint="Enter your birthday" ></TextField>
+
+    <Button (tap)="save()" text="save" ></Button>
+</StackLayout>

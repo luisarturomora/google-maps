@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router, private userService : UserService, 
-    private page : Page, private auth : AuthGuard 
+    private page : Page, private auth : AuthGuard
     ){
     this.user = new User();
     this.user.email = 'luis@gmail.com';
