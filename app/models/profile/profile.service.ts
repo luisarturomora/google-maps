@@ -71,7 +71,7 @@ export class ProfileService {
                         return Promise.reject('Something is wrong');
                     })
                 } else {
-                    this.update(this.user)
+                    return this.update(this.user)
                         .then( result => {
                             return Promise.resolve(result);
                         })

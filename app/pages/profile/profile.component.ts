@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DatePicker } from 'ui/date-picker';
 
 import { ProfileService } from '../../models/profile/profile.service';
 import { UserProfile } from '../../models/profile/profile';
@@ -18,7 +19,7 @@ export class ProfileComponent {
     }
 
     constructor( private profileService : ProfileService ){
-        profileService.getProfile()
+        this.profileService.getProfile()
             .then(result => {
                 this.user = result;
             })
@@ -37,5 +38,27 @@ export class ProfileComponent {
             })
     }
 
+    onPickerLoaded(event){
+        this.profileService.getProfile()
+            .then(result => {
+                this.user = result;
+                let birthday = new Date(this.user.birthday);
+                console.log(birthday)
+                let datePicker = <DatePicker>event.object;
+
+                datePicker.month = new Date(birthday).getMonth() + 1;
+                datePicker.day = new Date(birthday).getDate();
+                datePicker.year = new Date(birthday).getFullYear();
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        
+    }
+
+    dateChange(event){
+        let month = event.value.getMonth() + 1;
+        this.user.birthday = event.value.getFullYear() + '/' + month + '/' + event.value.getDate();
+    }
 
 }

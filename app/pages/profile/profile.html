@@ -12,7 +12,9 @@
     <Label class="no-margin" [text]="user.email" ></Label>
 
     <Label text="Birth Day"></Label>
-    <TextField [(ngModel)]="user.birthday" hint="Enter your birthday" ></TextField>
+    <StackLayout>
+        <DatePicker (loaded)="onPickerLoaded($event)" (dateChange)="dateChange($event)" ></DatePicker>
+    </StackLayout>
 
     <Button (tap)="save()" text="save" ></Button>
 </StackLayout>
