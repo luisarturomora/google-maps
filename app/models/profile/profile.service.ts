@@ -14,10 +14,10 @@ export class ProfileService {
         birthday: ''
     }
 
-    find(){
+    find() {
         return firebase.query(
             result => {},
-            '/users',
+            `/users/${this.user.uid}`,
             {
                 singleEvent: true,
                 orderBy: {

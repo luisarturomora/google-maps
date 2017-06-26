@@ -30,6 +30,10 @@ export class ProvincesComponent implements OnInit {
     private _changeDetectionRef: ChangeDetectorRef
     )
   {
+    let p = new Province();
+    
+    Province.fromJson({});
+    p.helloWorld();
   }
 
   ngOnInit() {

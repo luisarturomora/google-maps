@@ -3,6 +3,8 @@ import * as firebase from 'nativescript-plugin-firebase';
 
 import { AuthGuard } from '../../authguard.service';
 
+import { Province } from './provinces'; 
+
 firebase.init({
     persist: false,
     storageBucket: 'gs://hello-e2914.appspot.com',
@@ -41,6 +43,7 @@ export class Data {
                 },
             })
             .then(result => {
+                
                 return result.value;
             })
             .catch(error => {
@@ -53,4 +56,10 @@ export class Data {
         return firebase.logout();
     }
  
+}
+
+export class DataRespose {
+    let values : Array<Province>;
+    let result : Number; // -1 error, 0 correcto;
+    let message : string; // OK if everyting is awesome 
 }

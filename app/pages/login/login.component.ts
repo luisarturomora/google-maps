@@ -30,8 +30,6 @@ export class LoginComponent implements OnInit {
     private page : Page, private auth : AuthGuard
     ){
     this.user = new User();
-    this.user.email = 'luis@gmail.com';
-    this.user.password = 'password';
   }
 
   submit(){

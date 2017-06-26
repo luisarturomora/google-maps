@@ -6,8 +6,8 @@
     <Button [text]="isLoggingIn ? 'Sign in' : 'Sign up'" (tap)="submit()" class="submit-button"></Button>
     <Button [text]="isLoggingIn ? 'Sign up' : 'Back to log in'" (tap)="toggleDisplay()" ></Button>
 
-    <ActivityIndicator [busy]="isLoading" 
+    <ActivityIndicator busy="true" 
         [visibility]="isAuthenticating ? 'visible' : 'collapse'" 
-        row="1" horizontalAlignment="center" verticalAlignment="center">
+        row="1" horizontalAlignment="center">
     </ActivityIndicator>
 </StackLayout>
