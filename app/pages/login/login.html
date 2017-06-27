@@ -3,10 +3,17 @@
         autocorrect="false" autocapitalizationType="none"></TextField>
     <TextField hint="Password" secure="true" [(ngModel)]="user.password" ></TextField>
 
-    <Button [text]="isLoggingIn ? 'Sign in' : 'Sign up'" (tap)="submit()" class="submit-button"></Button>
-    <Button [text]="isLoggingIn ? 'Sign up' : 'Back to log in'" (tap)="toggleDisplay()" ></Button>
+    <TextField [visibility]="!isLoggingIn ? 'visible' : 'collapse'" [(ngModel)]="user.name" hint="Name">
+    </TextField>
+    <TextField hint="Last Name" [visibility]="!isLoggingIn ? 'visible' : 'collapse'"
+     [(ngModel)]="user.lastname"></TextField>
 
-    <ActivityIndicator busy="true" 
+    <Button [visibility]="!isAuthenticating ? 'visible' : 'collapse'" 
+    [text]="isLoggingIn ? 'Sign in' : 'Sign up'" (tap)="submit()" class="submit-button"></Button>
+    <Button [visibility]="!isAuthenticating ? 'visible' : 'collapse'" 
+    [text]="isLoggingIn ? 'Sign up' : 'Back to log in'" (tap)="toggleDisplay()" ></Button>
+
+    <ActivityIndicator [busy]="isAuthenticating" 
         [visibility]="isAuthenticating ? 'visible' : 'collapse'" 
         row="1" horizontalAlignment="center">
     </ActivityIndicator>

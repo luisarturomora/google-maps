@@ -3,8 +3,7 @@ import { registerElement } from 'nativescript-angular/element-registry';
 import { MapView, Marker, Position } from 'nativescript-google-maps-sdk';
 import { Page } from 'ui/page';
 
-import { Province } from '../../models/provinces/provinces';
-import { Data } from '../../models/provinces/province.service';
+import { IProvince, Province } from '../../models/provinces/provinces';
 
 
 // Important - must register MapView plugin in order to use in Angular templates
@@ -16,7 +15,7 @@ registerElement('MapView', () => MapView);
 })
 export class MapComponent {
 
-    province : Province;
+    province : IProvince;
     zoom = 8;
     bearing = 0;
     tilt = 0;
@@ -26,8 +25,8 @@ export class MapComponent {
 
     firstTime : boolean = true;
 
-    constructor( private data : Data, private page : Page) {
-        this.province = data.storage;
+    constructor( private page : Page) {
+        this.province = Province.getProvinceSelected();
     }
 
     //Map events

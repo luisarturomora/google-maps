@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { DatePicker } from 'ui/date-picker';
 
-import { ProfileService } from '../../models/profile/profile.service';
-import { UserProfile } from '../../models/profile/profile';
+import { IUser, User } from '../../models/user/user';
 
 @Component({
     selector: 'profile',
@@ -10,27 +9,21 @@ import { UserProfile } from '../../models/profile/profile';
     styleUrls: ['pages/profile/profile-common.css']
 })
 export class ProfileComponent {
-    user : UserProfile = {
-        uid: '',
-        email: '',
-        name: '',
-        lastname: '',
-        birthday: ''
-    }
+    user  = new User();
 
-    constructor( private profileService : ProfileService ){
-        this.profileService.getProfile()
+    constructor(){
+        User.getProfile(this.user.uid)
             .then(result => {
-                this.user = result;
+                this.user = new User();
             })
             .catch(error => {
                 console.log(error)
             })
     }
 
-    save(){
+    save() : void {
         if(this.user.name != '' && this.user.lastname != ''){
-            this.profileService.save(this.user)
+            this.user.save()
                 .then( result => {
                     alert(result);
                 })
@@ -42,13 +35,20 @@ export class ProfileComponent {
         }
     }
 
-    onPickerLoaded(event){
-        this.profileService.getProfile()
+    onPickerLoaded(event) : void {
+        User.getProfile(this.user.uid)
             .then(result => {
-                this.user = result;
+                this.user.email = result.email;
+                this.user.birthday = result.birthday;
+                this.user.lastname = result.lastname;
+                this.user.name = result.name;
+                this.user.uid = result.uid;
+                
                 let birthday = new Date();
-                if(this.user.birthday != ''){
+                if(this.user.birthday != undefined){
+                    if(this.user.birthday != ''){
                     birthday = new Date(this.user.birthday);
+                    }
                 }
                 let datePicker = <DatePicker>event.object;
 
@@ -62,7 +62,7 @@ export class ProfileComponent {
         
     }
 
-    dateChange(event){
+    dateChange(event) : void{
         let month = event.value.getMonth() + 1;
         this.user.birthday = event.value.getFullYear() + '/' + month + '/' + event.value.getDate();
     }

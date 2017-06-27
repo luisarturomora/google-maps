@@ -1,13 +1,13 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild } from "@angular/core";
 import { Router } from '@angular/router';
+import { RouterExtensions } from 'nativescript-angular/router';
 import * as SocialShare from 'nativescript-social-share';
 import { Page } from 'ui/page';
 import { RadSideDrawerComponent } from "nativescript-telerik-ui-pro/sidedrawer/angular";
 import { RadSideDrawer } from 'nativescript-telerik-ui-pro/sidedrawer';
 import * as platform from 'platform';
 
-import { Province } from '../../models/provinces/provinces';
-import { Data } from '../../models/provinces/province.service';
+import { IProvince, Province } from '../../models/provinces/provinces';
 
 @Component({
   selector: "province",
@@ -18,27 +18,22 @@ import { Data } from '../../models/provinces/province.service';
 
 
 export class ProvincesComponent implements OnInit {
-  provincesList: Array<Province> = [];
+  provincesList: Array<IProvince> = [];
+  province : IProvince;
   isLoading = false;
   listLoaded = false;
-  showBack = false;
-  title = 'Provinces';
 
   
   constructor(
-    private router : Router, private data : Data, private page : Page,
-    private _changeDetectionRef: ChangeDetectorRef
+    private router : Router, private page : Page,
+    private _changeDetectionRef: ChangeDetectorRef, private routerExtensions : RouterExtensions
     )
   {
-    let p = new Province();
-    
-    Province.fromJson({});
-    p.helloWorld();
   }
 
   ngOnInit() {
     this.isLoading = true;
-    this.data.getList()
+    Province.getList()
     .then(result => {
       this.provincesList = result;
     })
@@ -51,7 +46,7 @@ export class ProvincesComponent implements OnInit {
   }
 
   toMap(province){
-    this.data.storage = province
+    Province.selectProvince(province);
     this.router.navigate(['/map']);
   }
 
@@ -80,7 +75,7 @@ export class ProvincesComponent implements OnInit {
 
     logout(){
       this.onCloseDrawerTap();
-      this.data.logout();
-      this.router.navigate(['/login']);
+      //this.data.logout();
+      this.routerExtensions.navigate(['/login'], {clearHistory: true});
     }
 }

@@ -1,38 +1,38 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
+import { RouterExtensions } from 'nativescript-angular/router'
 import { Page } from 'ui/page';
 import { Color } from 'color';
 import { View } from 'ui/core/view';
 
-import { User } from '../../models/user/user';
-import { UserService } from "../../models/user/user.service";
+import { User, IUser } from '../../models/user/user';
 import { AuthGuard } from '../../authguard.service';
 
 @Component({
   selector: "my-app",
-  providers: [UserService],
   templateUrl: './pages/login/login.html',
   styleUrls: ["pages/login/login-common.css", "pages/login/login.css"]
 })
 
 export class LoginComponent implements OnInit {
-  user: User;
-  isLoggingIn = true;
-  isAuthenticating = false;
+  user = new User();
+  isLoggingIn : boolean = true;
+  isAuthenticating : boolean = false;
   @ViewChild('container') container : ElementRef;
 
   ngOnInit() {
+    this.isAuthenticating = false;
     this.page.actionBarHidden = true;
   } 
 
   constructor(
-    private router: Router, private userService : UserService, 
+    private router: Router, private routerExtensions : RouterExtensions,
     private page : Page, private auth : AuthGuard
     ){
-    this.user = new User();
+        this.user.email = 'luis@gmail.com';
   }
 
-  submit(){
+  submit() : void {
     this.isAuthenticating = true;
     if(this.isLoggingIn){
       this.login();
@@ -41,12 +41,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  toggleDisplay() {
+  toggleDisplay() : void {
     this.isLoggingIn = !this.isLoggingIn;
-    this.user = {
-      email: '',
-      password: ''
-    }
+    this.user.email = '';
+    this.user.password = '';
     let container = <View>this.container.nativeElement;
     container.animate({
       backgroundColor: this.isLoggingIn ? new Color("white") : new Color("#E6E6FA"),
@@ -54,26 +52,40 @@ export class LoginComponent implements OnInit {
     });
 }
 
-    login() {
-      this.userService.login(this.user)
-        .then(result => {
-            this.isAuthenticating = false;
-            this.auth.isLoggedIn = true;
-            this.router.navigate(["/provinces"])
-            }
-          )
-          .catch( error => {
-            this.isAuthenticating = false;
-            alert(error);
-          });
+    login() : void {
+      if(this.user.email && this.user.password){
+        User.login(this.user.email, this.user.password)
+          .then(result => {
+            this.user = result;
+            User.getProfile(this.user.uid)
+              .then( result => {
+                this.isAuthenticating = false;
+                this.auth.isLoggedIn = true;
+                this.routerExtensions.navigate(["/provinces"], {clearHistory: true});
+              }).catch( error => {
+                alert(error);
+              })
+          })
+            .catch( error => {
+              this.isAuthenticating = false;
+              alert(error);
+            });
+      } else {
+        alert('Type an email and a password');
+      }
     }
 
-  signUp() {
-    this.userService.register(this.user)
+  signUp() : void { 
+    User.register(this.user.email, this.user.password)
       .then( result => {
-          this.isAuthenticating = false;
-          alert("Hello, you can now sign in as " + this.user.email);
-          this.toggleDisplay();
+        this.user.birthday = '';
+        this.user.uid = result.key;
+          this.user.save()
+            .then( result => {
+              this.isAuthenticating = false;
+              alert("Hello, you can now sign in as " + this.user.email);
+              this.toggleDisplay();
+            })
         })
         .catch( error => {
           this.isAuthenticating = false;

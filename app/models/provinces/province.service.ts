@@ -3,38 +3,15 @@ import * as firebase from 'nativescript-plugin-firebase';
 
 import { AuthGuard } from '../../authguard.service';
 
-import { Province } from './provinces'; 
-
-firebase.init({
-    persist: false,
-    storageBucket: 'gs://hello-e2914.appspot.com',
-    onAuthStateChanged: (data: any) => {
-        if (data.loggedIn) {
-        data.token = data.user.uid;
-        }
-        else {
-        data.token = "";
-        }
-    }
-    }).then(
-    function (instance) {
-        console.log("firebase.init done");
-    },
-    function (error) {
-        console.log("firebase.init error: " + error);
-    });
-
-    
+import { IProvince } from './provinces'; 
  
 @Injectable()
-export class Data {
+export class ProvinceService {
  
-    public storage: any;
- 
-    constructor(private authguard : AuthGuard ) {
+    constructor() {
     }
 
-    getList(){
+    getList() : Promise<Array<object>> {
         return firebase.query(result => {}, '/list', {
                 singleEvent: true,
                 orderBy: {
@@ -43,7 +20,6 @@ export class Data {
                 },
             })
             .then(result => {
-                
                 return result.value;
             })
             .catch(error => {
@@ -51,15 +27,9 @@ export class Data {
             })
     }
 
-    logout(){
-        this.authguard.isLoggedIn = false;
-        return firebase.logout();
-    }
+    // logout() : Promise<any> {
+    //     this.authguard.isLoggedIn = false;
+    //     return firebase.logout();
+    // }
  
-}
-
-export class DataRespose {
-    let values : Array<Province>;
-    let result : Number; // -1 error, 0 correcto;
-    let message : string; // OK if everyting is awesome 
 }

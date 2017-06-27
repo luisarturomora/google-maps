@@ -10,17 +10,35 @@ import { NativeScriptUICalendarModule } from "nativescript-telerik-ui-pro/calend
 import { NativeScriptUIChartModule } from "nativescript-telerik-ui-pro/chart/angular";
 import { NativeScriptUIDataFormModule } from "nativescript-telerik-ui-pro/dataform/angular";
 
+import * as firebase from 'nativescript-plugin-firebase';
+
 import { routes, navigatableComponents, authProviders} from "./app.routing";
 
 import { AppComponent } from "./app.component";
 
 import { API_KEY } from './config';
 
-import { Data } from './models/provinces/province.service';
+import { ProvinceService } from './models/provinces/province.service';
 import { UserService } from './models/user/user.service';
-import { ProfileService } from './models/profile/profile.service';
 
-
+firebase.init({
+    persist: false,
+    storageBucket: 'gs://hello-e2914.appspot.com',
+    onAuthStateChanged: (data: any) => {
+        if (data.loggedIn) {
+        data.token = data.user.uid;
+        }
+        else {
+        data.token = "";
+        }
+    }
+    }).then(
+    function (instance) {
+        console.log("firebase.init done");
+    },
+    function (error) {
+        console.log("firebase.init error: " + error);
+    });
 
 
 import * as platform from "platform";
@@ -49,9 +67,8 @@ if (platform.isIOS) {
   ],
   providers: [
     ...authProviders,
-     Data,
-     UserService,
-     ProfileService
+     ProvinceService,
+     UserService
      ] ,
   bootstrap: [ AppComponent ]
 })
